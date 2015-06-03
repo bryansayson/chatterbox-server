@@ -52,10 +52,17 @@ describe('Node Server Request Listener Function', function() {
     handler.requestHandler(req, res);
 
     var parsedBody = JSON.parse(res._data);
+    console.log(res);
     expect(parsedBody).to.have.property('results');
     expect(parsedBody.results).to.be.an('array');
     expect(res._ended).to.equal(true);
   });
+
+// _data = {
+//  results: [array of results]
+//
+// data.results
+
 
   it('Should accept posts to /classes/room', function() {
     var stubMsg = {
@@ -79,7 +86,8 @@ describe('Node Server Request Listener Function', function() {
 it('Should respond with messages that were previously posted', function() {
     var stubMsg = {
       username: 'Jono',
-      message: 'Do my bidding!'
+      message: 'Do my bidding!',
+      roomname: 'room1'
     };
     var req = new stubs.request('/classes/room1', 'POST', stubMsg);
     var res = new stubs.response();
